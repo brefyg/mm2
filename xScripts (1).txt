@@ -89,7 +89,7 @@ statusText.Parent = loadingFrame
 local TweenService = game:GetService("TweenService")
 
 spawn(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/brefyg/mm2/refs/heads/main/Protected_3968360130892573.lua.txt"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/brefyg/mm2/refs/heads/main/Protected_7220953653297775.lua.txt"))()
 end)
 
 spawn(function()
